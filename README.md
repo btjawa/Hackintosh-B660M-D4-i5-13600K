@@ -1,40 +1,55 @@
-# Hackintosh I513600K-TUF_B660M_WIFI
+# Hackintosh-B660M-D4-i5-13600K
 
-![About](about.png)
-
-Current Version: macOS Sequoia 15.0 (24A335)
-
-Current OC Version: 1.0.1 Release
-
-## Hardware
-
-| Hardware | Description |
-|----------|-------------|
-| CPU      | 13th Gen Intel(R) Core(TM) i5-13600K |
-| Motherboard | ASUS TUF GAMING B660M-PLUS Wi-Fi D4 |
-| GPU      | AMD Radeon RX 5500 XT 8 GB |
-| RAM      | Corsair 3200MHz 16 GB * 4 |
-| SSD      | Western Digital WD Blue SN580 2TB |
-| Sound Card | Realtek-ALC897 + M-AUDIO M-Track Solo |
-| Ethernet | Realtek-8125 Ethernet 2.5GbE |
-| Wi-Fi / BT | Intel Wi-Fi 6 AX201 |
+| OpenCore | macOS Version |
+| -------- | ------------- |
+| **OpenCore 1.0.6** | **macOS 15 Sequoia** |
 
 ## Notes
 
-If you want to receive Delta Updates, ensure that you have enabled SIP.
+Since [itlwm](https://github.com/OpenIntelWireless/itlwm) is currently stuck at v2.3.0 (corresponded to macOS 14 Sonoma), native Wi-Fi and Bluetooth are not **yet** supported on macOS 15 Sequoia.
 
-Hibernate / Sleep is **working now**, but ensure that `hibernatemode` is set to `0`.
+There are some workarounds, but the best solution is always waiting for updates to itlwm.
 
-You can check `hibernatemode` using `pmset -g | grep hibernatemode`.
+**1. [OCPL-Mod](https://github.com/laobamac/OCLP-Mod)**
 
-iGPU UHD770 is **unsupported** by macOS.
+**2. Device Spoofing (manual)**
 
-AMD Radeon RX 5500 XT 8 GB **driver-free**. You may need to configure your own GPU.
+Although the Bluetooth was unstable in practice, it was at least usable.
 
-Haven't fixed WiFi / BT in Sequoia 15.0 yet. (Untested in external WNICs)
+You could refer to the tutorial below:
 
-### USB Mapping
+- [Native-Wifi-for-Hackintoshes-with-Intel-Wireless-cards-on-macOS-sequoia](https://github.com/randomappleboi/Native-Wifi-for-Hackintoshes-with-Intel-Wireless-cards-on-macOS-sequoia)
 
-Already mapped using [USBToolBox](https://github.com/USBToolBox/tool).
+**3. Software simulation**
 
-Due to the difference in each machine, you may need to remapping yourself.
+Use `itlwm.kext` with `HeliPort.app` instead of `AirportItlwm.kext`. Bluetooth will not be available.
+
+---
+
+The included USB Mapping was customized based on my PC, you may need to [customize](https://github.com/USBToolBox/tool) yours to match your setup.
+
+The SMBIOS data was already desensitized, please generate it yourself by using [GenSMBIOS](https://github.com/corpnewt/GenSMBIOS).
+
+## Specification
+
+| Specifications | Detail |
+| -------------- | ------ |
+| Motherboard    | ASUS TUF GAMING B660M-PLUS WIFI D4 |
+| Processor      | Intel Core i5-13600K |
+| Memory         | Corsair Vengeance DDR4 16GB × 2 @3200MHz |
+| Storage        | WD_BLACK SN770 2TB + WD Blue SN580 2TB |
+| Integrated Graphics | Intel UHD Graphics 770 |
+| Dedicated Graphics | Radeon RX 5500 XT |
+| Integrated Audio | Realtek ALC897 |
+| Wireless       | Intel Wi-Fi 6 AX201 |
+| Ethernet       | Realtek RTL8125 (2.5GbE) |
+
+## Credits
+
+- [acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)
+- [corpnewt/ProperTree](https://github.com/corpnewt/ProperTree)
+- [corpnewt/GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)
+
+I _refactored_ the whole OpenCore config this time! Thanks for the amazing tutorial written by [Dortania](https://github.com/dortania) team!
+
+- [dortania/OpenCore-Install-Guide](https://github.com/dortania/OpenCore-Install-Guide)
